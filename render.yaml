@@ -10,7 +10,7 @@ services:
       npm run build
     startCommand: node dist/main.js
     runtime: node
-    repo: https://github.com/your-username/your-backend-repo
+    repo: https://jloiseau01.github.io/Conversational-Banking/
     branch: main
     healthCheckPath: /ai/health
     envVars:
