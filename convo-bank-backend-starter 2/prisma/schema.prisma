@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Goals     Goal[]
+  Badges    Badge[]
+}
+
+model Goal {
+  id            String   @id @default(cuid())
+  userId        String
+  name          String
+  targetAmount  Int
+  currentAmount Int       @default(0)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  User          User      @relation(fields: [userId], references: [id])
+}
+
+model Badge {
+  id          String  @id @default(cuid())
+  userId      String
+  code        String
+  name        String
+  description String
+  icon        String
+  earnedAt    DateTime @default(now())
+  User        User     @relation(fields: [userId], references: [id])
+}
